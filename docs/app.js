@@ -69,14 +69,19 @@ function render(data) {
 }
 
 async function fetchPulse() {
-  try {
-    const res = await fetch("/api/pulse", { cache: "no-store" });
-    if (res.ok) return res.json();
-  } catch {
-    // static hosting (GitHub Pages) — no serverless API
+  const isLocal =
+    location.hostname === "localhost" || location.hostname === "127.0.0.1";
+
+  if (isLocal) {
+    try {
+      const res = await fetch("/api/pulse", { cache: "no-store" });
+      if (res.ok) return res.json();
+    } catch {
+      // fall through to static snapshot
+    }
   }
 
-  const res = await fetch("./data.json", { cache: "no-store" });
+  const res = await fetch("data.json", { cache: "no-store" });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   return res.json();
 }
