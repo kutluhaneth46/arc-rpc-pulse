@@ -68,14 +68,25 @@ function render(data) {
     .join("");
 }
 
+async function fetchPulse() {
+  try {
+    const res = await fetch("/api/pulse", { cache: "no-store" });
+    if (res.ok) return res.json();
+  } catch {
+    // static hosting (GitHub Pages) — no serverless API
+  }
+
+  const res = await fetch("./data.json", { cache: "no-store" });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}
+
 async function load({ manual = false } = {}) {
   if (manual) els.refresh.disabled = true;
   els.live.classList.add("loading");
 
   try {
-    const res = await fetch("/api/pulse", { cache: "no-store" });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
+    const data = await fetchPulse();
     render(data);
   } catch (error) {
     els.rows.innerHTML = `<tr><td colspan="6" class="loading">Failed to load: ${
