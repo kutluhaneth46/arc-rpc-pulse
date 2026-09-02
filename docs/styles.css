@@ -328,7 +328,46 @@ code {
   font-size: 0.85em;
 }
 
-@media (max-width: 800px) {
+.badge.live.stale .dot {
+  background: var(--warn);
+  box-shadow: 0 0 12px var(--warn);
+}
+
+.stale-badge {
+  display: inline-block;
+  margin-right: 0.35rem;
+  padding: 0.1rem 0.45rem;
+  border-radius: 6px;
+  background: rgba(245, 165, 36, 0.15);
+  color: var(--warn);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.provider-header td {
+  background: rgba(43, 176, 237, 0.06);
+  font-size: 0.85rem;
+  padding-top: 1rem;
+}
+
+.budget-tag {
+  display: inline-block;
+  margin-left: 0.35rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 6px;
+  border: 1px solid var(--panel-border);
+  color: var(--muted);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.host-indent {
+  padding-left: 0.75rem;
+  border-left: 2px solid var(--panel-border);
+}
+
   .stats {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }

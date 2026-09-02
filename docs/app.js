@@ -1,4 +1,5 @@
 const REFRESH_MS = 60_000;
+const STALE_MINUTES = 30;
 
 const els = {
   checkedAt: document.getElementById("checked-at"),
@@ -9,6 +10,7 @@ const els = {
   rows: document.getElementById("endpoint-rows"),
   refresh: document.getElementById("refresh-btn"),
   live: document.getElementById("live-badge"),
+  vantage: document.getElementById("vantage-note"),
 };
 
 function formatTime(iso) {
@@ -18,37 +20,69 @@ function formatTime(iso) {
   });
 }
 
+function ageMinutes(iso) {
+  return Math.max(0, Math.round((Date.now() - new Date(iso).getTime()) / 60_000));
+}
+
 function statusClass(ep) {
-  if (ep.ok) return "ok";
-  if (ep.rateLimited) return "warn";
+  const status = ep.status ?? (ep.ok ? "ok" : ep.rateLimited ? "limited" : "error");
+  if (status === "ok") return "ok";
+  if (status === "limited") return "warn";
   return "bad";
 }
 
 function statusLabel(ep) {
-  if (ep.ok) return "OK";
-  if (ep.rateLimited) return "Rate limit";
+  const status = ep.status ?? (ep.ok ? "ok" : ep.rateLimited ? "limited" : "error");
+  if (status === "ok") return "OK";
+  if (status === "limited") return "Limited";
   return "Down";
 }
 
 function note(ep) {
-  if (ep.ok) return "—";
-  if (ep.rateLimited) return `-32011 request limit`;
+  const status = ep.status ?? (ep.ok ? "ok" : ep.rateLimited ? "limited" : "error");
+  if (status === "ok") return "—";
+  if (status === "limited") return `-32011 (transient)`;
   return ep.error ?? "error";
 }
 
-function render(data) {
-  const { summary, checkedAt, endpoints } = data;
+function renderRows(data) {
+  if (data.providers?.length) {
+    return data.providers
+      .flatMap((provider) => {
+        const budgetNote = provider.sharedBudget
+          ? `<span class="budget-tag">shared budget</span>`
+          : "";
+        const header = `
+    <tr class="provider-header">
+      <td colspan="6">
+        <strong>${provider.name}</strong> ${budgetNote}
+        <span class="muted">· provider ${statusLabel({ status: provider.status })}</span>
+      </td>
+    </tr>`;
+        const hosts = provider.hosts
+          .map(
+            (host) => `
+    <tr>
+      <td><span class="status-pill ${statusClass(host)}">${statusLabel(host)}</span></td>
+      <td>
+        <div class="provider host-indent">
+          <strong>${host.label}</strong>
+          <span>${host.url}</span>
+        </div>
+      </td>
+      <td class="mono">${host.latencyMs} ms</td>
+      <td class="mono">${host.chainId ?? "—"}</td>
+      <td class="mono">${host.blockNumber ?? "—"}</td>
+      <td class="muted">${note(host)}</td>
+    </tr>`,
+          )
+          .join("");
+        return header + hosts;
+      })
+      .join("");
+  }
 
-  els.checkedAt.textContent = `Last check · ${formatTime(checkedAt)}`;
-  els.healthy.textContent = `${summary.healthy}/${summary.total}`;
-  els.rate.textContent = String(summary.rateLimited);
-  els.avg.textContent =
-    summary.avgLatencyMs != null ? `${summary.avgLatencyMs} ms` : "—";
-  els.fast.textContent = summary.fastest
-    ? `${summary.fastest.name} · ${summary.fastest.latencyMs} ms`
-    : "—";
-
-  els.rows.innerHTML = endpoints
+  return (data.endpoints ?? [])
     .map(
       (ep) => `
     <tr>
@@ -66,6 +100,36 @@ function render(data) {
     </tr>`,
     )
     .join("");
+}
+
+function render(data) {
+  const { summary, checkedAt } = data;
+  const age = ageMinutes(checkedAt);
+  const stale = age > STALE_MINUTES;
+
+  els.checkedAt.innerHTML = stale
+    ? `<span class="stale-badge">STALE</span> ${age}m ago · ${formatTime(checkedAt)}`
+    : `${age}m ago · ${formatTime(checkedAt)}`;
+  els.live.classList.toggle("stale", stale);
+
+  const providersTotal = summary.providersTotal ?? summary.total;
+  const providersOk = summary.providersOk ?? summary.healthy;
+
+  els.healthy.textContent = `${providersOk}/${providersTotal} providers`;
+  els.rate.textContent = String(summary.hostsLimited ?? summary.rateLimited ?? 0);
+  els.avg.textContent =
+    summary.avgLatencyMs != null ? `${summary.avgLatencyMs} ms` : "—";
+  els.fast.textContent = summary.fastest
+    ? `${summary.fastest.name} · ${summary.fastest.latencyMs} ms`
+    : "—";
+
+  if (els.vantage) {
+    els.vantage.textContent =
+      data.vantage ??
+      "Latency measured from GitHub Actions runner (single vantage, serial probes).";
+  }
+
+  els.rows.innerHTML = renderRows(data);
 }
 
 async function fetchPulse() {

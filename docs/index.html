@@ -28,8 +28,9 @@
         </div>
         <h1>Arc RPC Pulse</h1>
         <p class="lede">
-          Real-time health for all <strong>9 public Arc Testnet</strong> JSON-RPC
-          endpoints — chain id, latency, rate limits.
+          Health for <strong>5 provider budgets</strong> across
+          <strong>9 public hostnames</strong> on Arc Testnet — chain id, latency,
+          rate limits.
         </p>
         <div class="hero-actions">
           <button type="button" class="btn primary" id="refresh-btn">
@@ -47,11 +48,11 @@
 
       <section class="stats" id="stats" aria-live="polite">
         <article class="stat">
-          <span class="stat-label">Healthy</span>
+          <span class="stat-label">Providers OK</span>
           <span class="stat-value" id="stat-healthy">—</span>
         </article>
         <article class="stat">
-          <span class="stat-label">Rate limited</span>
+          <span class="stat-label">Hosts limited</span>
           <span class="stat-value warn" id="stat-rate">—</span>
         </article>
         <article class="stat">
@@ -103,9 +104,10 @@
           ·
           <a href="https://github.com/kutluhaneth46/arc-rpc-pulse">Source</a>
         </p>
+        <p class="muted tiny" id="vantage-note"></p>
         <p class="muted tiny">
-          Auto-refresh every 60s. Public endpoints allow 1 in-flight request per
-          connection (<code>-32011</code>).
+          Snapshot refreshes ~every 10m via GitHub Actions. Public endpoints allow
+          1 in-flight request per connection (<code>-32011</code> is transient).
         </p>
       </footer>
     </main>
