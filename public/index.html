@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Arc RPC Pulse — Live Testnet Health</title>
+    <meta
+      name="description"
+      content="Live latency and health checks for all public Arc Testnet JSON-RPC endpoints."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Outfit:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="bg-grid" aria-hidden="true"></div>
+    <main class="shell">
+      <header class="hero">
+        <div class="hero-top">
+          <span class="badge live" id="live-badge">
+            <span class="dot"></span> LIVE
+          </span>
+          <span class="muted" id="checked-at">Checking…</span>
+        </div>
+        <h1>Arc RPC Pulse</h1>
+        <p class="lede">
+          Real-time health for all <strong>9 public Arc Testnet</strong> JSON-RPC
+          endpoints — chain id, latency, rate limits.
+        </p>
+        <div class="hero-actions">
+          <button type="button" class="btn primary" id="refresh-btn">
+            Refresh now
+          </button>
+          <a
+            class="btn ghost"
+            href="https://github.com/kutluhaneth46/arc-dev-survival-kit"
+            target="_blank"
+            rel="noopener"
+            >Survival Kit</a
+          >
+        </div>
+      </header>
+
+      <section class="stats" id="stats" aria-live="polite">
+        <article class="stat">
+          <span class="stat-label">Healthy</span>
+          <span class="stat-value" id="stat-healthy">—</span>
+        </article>
+        <article class="stat">
+          <span class="stat-label">Rate limited</span>
+          <span class="stat-value warn" id="stat-rate">—</span>
+        </article>
+        <article class="stat">
+          <span class="stat-label">Avg latency</span>
+          <span class="stat-value" id="stat-avg">—</span>
+        </article>
+        <article class="stat">
+          <span class="stat-label">Fastest</span>
+          <span class="stat-value accent" id="stat-fast">—</span>
+        </article>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Endpoints</h2>
+          <span class="muted mono" id="chain-hint">expected 0x4cef52</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Status</th>
+                <th scope="col">Provider</th>
+                <th scope="col">Latency</th>
+                <th scope="col">Chain</th>
+                <th scope="col">Block</th>
+                <th scope="col">Note</th>
+              </tr>
+            </thead>
+            <tbody id="endpoint-rows">
+              <tr>
+                <td colspan="6" class="loading">Probing endpoints…</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <footer class="foot">
+        <p>
+          Companion to
+          <a href="https://github.com/kutluhaneth46/arc-dev-survival-kit"
+            >arc-dev-survival-kit</a
+          >
+          ·
+          <a href="https://github.com/circlefin/arc-node/issues/305"
+            >arc-node showcase</a
+          >
+          ·
+          <a href="https://github.com/kutluhaneth46/arc-rpc-pulse">Source</a>
+        </p>
+        <p class="muted tiny">
+          Auto-refresh every 60s. Public endpoints allow 1 in-flight request per
+          connection (<code>-32011</code>).
+        </p>
+      </footer>
+    </main>
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>
