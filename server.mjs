@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 import { pulseAll } from "./lib/pulse.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const PUBLIC = path.join(__dirname, "public");
+const PUBLIC = path.join(__dirname, "docs");
 const PORT = Number(process.env.PORT ?? 3456);
 
 const MIME = {
