@@ -1,15 +1,15 @@
 {
-  "checkedAt": "2026-09-02T00:31:29.417Z",
+  "checkedAt": "2026-09-02T00:32:03.516Z",
   "expectedChainId": "0x4cef52",
   "summary": {
     "total": 9,
     "healthy": 9,
     "unhealthy": 0,
     "rateLimited": 0,
-    "avgLatencyMs": 668,
+    "avgLatencyMs": 585,
     "fastest": {
-      "name": "Arc Network",
-      "latencyMs": 255
+      "name": "dRPC .io",
+      "latencyMs": 346
     }
   },
   "endpoints": [
@@ -18,9 +18,9 @@
       "name": "Arc Network",
       "url": "https://rpc.testnet.arc.network",
       "ok": true,
-      "latencyMs": 255,
+      "latencyMs": 426,
       "chainId": "0x4cef52",
-      "blockNumber": 60019272,
+      "blockNumber": 60019337,
       "error": null,
       "code": null,
       "rateLimited": false
@@ -30,9 +30,9 @@
       "name": "Arc .io",
       "url": "https://rpc.testnet.arc.io",
       "ok": true,
-      "latencyMs": 297,
+      "latencyMs": 357,
       "chainId": "0x4cef52",
-      "blockNumber": 60019272,
+      "blockNumber": 60019337,
       "error": null,
       "code": null,
       "rateLimited": false
@@ -42,9 +42,9 @@
       "name": "dRPC",
       "url": "https://rpc.drpc.testnet.arc.network",
       "ok": true,
-      "latencyMs": 713,
+      "latencyMs": 413,
       "chainId": "0x4cef52",
-      "blockNumber": 60019273,
+      "blockNumber": 60019337,
       "error": null,
       "code": null,
       "rateLimited": false
@@ -54,9 +54,9 @@
       "name": "dRPC .io",
       "url": "https://rpc.drpc.testnet.arc.io",
       "ok": true,
-      "latencyMs": 1340,
+      "latencyMs": 346,
       "chainId": "0x4cef52",
-      "blockNumber": 60019274,
+      "blockNumber": 60019337,
       "error": null,
       "code": null,
       "rateLimited": false
@@ -66,9 +66,9 @@
       "name": "Blockdaemon",
       "url": "https://rpc.blockdaemon.testnet.arc.network",
       "ok": true,
-      "latencyMs": 635,
+      "latencyMs": 729,
       "chainId": "0x4cef52",
-      "blockNumber": 60019272,
+      "blockNumber": 60019337,
       "error": null,
       "code": null,
       "rateLimited": false
@@ -78,9 +78,9 @@
       "name": "Blockdaemon .io",
       "url": "https://rpc.blockdaemon.testnet.arc.io",
       "ok": true,
-      "latencyMs": 859,
+      "latencyMs": 889,
       "chainId": "0x4cef52",
-      "blockNumber": 60019273,
+      "blockNumber": 60019338,
       "error": null,
       "code": null,
       "rateLimited": false
@@ -90,9 +90,9 @@
       "name": "QuickNode",
       "url": "https://rpc.quicknode.testnet.arc.network",
       "ok": true,
-      "latencyMs": 604,
+      "latencyMs": 543,
       "chainId": "0x4cef52",
-      "blockNumber": 60019273,
+      "blockNumber": 60019338,
       "error": null,
       "code": null,
       "rateLimited": false
@@ -102,9 +102,9 @@
       "name": "QuickNode .io",
       "url": "https://rpc.quicknode.testnet.arc.io",
       "ok": true,
-      "latencyMs": 693,
+      "latencyMs": 747,
       "chainId": "0x4cef52",
-      "blockNumber": 60019273,
+      "blockNumber": 60019338,
       "error": null,
       "code": null,
       "rateLimited": false
@@ -114,9 +114,9 @@
       "name": "dRPC.org",
       "url": "https://arc-testnet.drpc.org",
       "ok": true,
-      "latencyMs": 612,
+      "latencyMs": 819,
       "chainId": "0x4cef52",
-      "blockNumber": 60019273,
+      "blockNumber": 60019338,
       "error": null,
       "code": null,
       "rateLimited": false
