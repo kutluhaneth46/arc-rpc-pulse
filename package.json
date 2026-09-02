@@ -1,0 +1,14 @@
+{
+  "name": "arc-rpc-pulse",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Live health dashboard for Arc Testnet public JSON-RPC endpoints",
+  "scripts": {
+    "start": "node server.mjs",
+    "pulse": "node -e \"import('./lib/pulse.mjs').then(m => m.pulseAll().then(d => console.log(JSON.stringify(d, null, 2))))\""
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
