@@ -31,7 +31,7 @@ npm run pulse
 
 ### GitHub Pages (default)
 
-Enabled on `master` → `/public`. The [Pulse workflow](.github/workflows/pulse.yml) commits fresh `public/data.json` every 10 minutes.
+Enabled on `master` → `/docs`. The [Pulse workflow](.github/workflows/pulse.yml) commits fresh `public/data.json` every 10 minutes.
 
 ### Vercel (optional, live API)
 
