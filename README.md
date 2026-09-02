@@ -8,7 +8,9 @@ Probes each URL with `eth_chainId` (and `eth_blockNumber` when healthy), reports
 
 ## Live
 
-<!-- deploy-url -->
+**https://kutluhaneth46.github.io/arc-rpc-pulse/**
+
+Updates every ~10 minutes via GitHub Actions (plus on-demand refresh reads the latest snapshot).
 
 ## Quick start (local)
 
@@ -25,13 +27,19 @@ CLI one-shot:
 npm run pulse
 ```
 
-## Deploy (Vercel)
+## Deploy
+
+### GitHub Pages (default)
+
+Enabled on `master` → `/public`. The [Pulse workflow](.github/workflows/pulse.yml) commits fresh `public/data.json` every 10 minutes.
+
+### Vercel (optional, live API)
 
 ```bash
 npx vercel --prod
 ```
 
-Requires Node 20+. The `/api/pulse` route runs server-side (browsers cannot call most RPC URLs directly due to CORS).
+Requires Node 20+. The `/api/pulse` route probes on demand; static hosting falls back to `data.json`.
 
 ## What it checks
 
